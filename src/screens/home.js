@@ -118,12 +118,17 @@ export const Home = ({ navigation }) => {
 
 	//Function used to search planets by their name
 	const searchFilter = (text) => {
+		if(text) {
 		const filteredList = planetList.filter((item) => {
 			const itemData = item.name.toUpperCase();
 			const userInput = text.toUpperCase();
 			return itemData.indexOf(userInput) > -1;
 		});
 		setPlanetList(filteredList);
+	}
+	else {
+		setPlanetList(PLANET_LIST)
+	}
 	};
 
 //Filter planets based on their rotation time and radius
