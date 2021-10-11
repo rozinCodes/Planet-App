@@ -1,38 +1,39 @@
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import React, { useState } from 'react';
-import {
-	FlatList,
-	Image,
-	ScrollView,
-	StyleSheet,
-	TextInput,
-	TouchableOpacity,
-	useWindowDimensions,
-	View
-} from 'react-native';
+import { FlatList, Image, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../components/header';
-import { Text } from '../components/text/text';
-import { colors, spacing } from '../theme';
-import { PLANET_LIST } from '../planets';
 import ButtonComponent from '../components/text/buttonComponent';
+import { Text } from '../components/text/text';
+import { PLANET_LIST } from '../planets';
+import { colors, spacing } from '../theme';
+
+const ROTATION_TIME = [ 0, 500 ];
+const RADIUS = [ 3000, 15000 ];
 
 //Bottom modal component
 const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 	const { height } = useWindowDimensions();
-	const [ rotationTime, setRotationTime ] = useState([ 0, 500 ]);
-	const [ radius, setRadius ] = useState([ 3000, 15000 ]);
+	const [ rotationTime, setRotationTime ] = useState(ROTATION_TIME);
+	const [ radius, setRadius ] = useState(RADIUS);
 
+//Filter resutlts on filter button click
 	const onPressFilter = () => {
 		filterAction({ rotationTime, radius });
 		closeModal();
 	};
+
+//To reset filtered results
 	const onResetPressed = () => {
 		resetFilter();
 		closeModal();
+		setRotationTime(ROTATION_TIME);
+		setRadius(RADIUS);
 	};
+
+//Bottom Modal
 	return (
 		<ReactNativeModal
 			isVisible={visible}
@@ -125,6 +126,7 @@ export const Home = ({ navigation }) => {
 		setPlanetList(filteredList);
 	};
 
+//Filter planets based on their rotation time and radius
 	const filterPlanets = (data) => {
 		const { rotationTime, radius } = data;
 
@@ -139,6 +141,7 @@ export const Home = ({ navigation }) => {
 		setPlanetList(filteredList);
 	};
 
+//Set home screen to default on reset pressed
 	const onResetPressed = () => {
 		setPlanetList(PLANET_LIST);
 	};

@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from './src/components/text/text';
 import { Details } from './src/screens/details';
 import { Home } from './src/screens/home';
+import Web from './src/screens/web';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
 				<Stack.Navigator>
 					<Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 					<Stack.Screen name="Details" component={Details} options={{ headerShown: false }} />
+					<Stack.Screen name="Web" component={Web} options={{ headerShown: false }} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		);

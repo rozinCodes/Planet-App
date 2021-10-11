@@ -1,6 +1,6 @@
 import { EvilIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Linking, Pressable, ScrollView, View, Image, StyleSheet } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../components/header';
 import { Text } from '../components/text/text';
@@ -22,12 +22,12 @@ const PlanetSection = ({ title, value }) => {
 			}}
 		>
 			<Text>{title}</Text>
-			<Text preset="h4">{value}</Text>
+			<Text preset='h4'>{value}</Text>
 		</View>
 	);
 };
 
-export const Details = ({ route }) => {
+export const Details = ({ route, navigation }) => {
 	const { planet } = route.params;
 	const { name, description, wikiLink, rotationTime, revolutionTime, avgTemp, radius, surfaceImage } = planet;
 	return (
@@ -39,7 +39,7 @@ export const Details = ({ route }) => {
 				}}>
 				<Image source={surfaceImage} style={styles.imageStyle} />
 				<View style={{ alignItems: 'center' }}>
-					<Text preset="h3" style={styles.nameStyle}>
+					<Text preset='h3' style={styles.nameStyle}>
 						{name}
 					</Text>
 					<Text style={styles.descriptionStyle}>{description}</Text>
@@ -48,9 +48,9 @@ export const Details = ({ route }) => {
 				<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 					<Text>Source: </Text>
 					<View>
-						<Pressable style={{ flexDirection: 'row' }} onPress={() => Linking.openURL(wikiLink)}>
+						<Pressable style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('Web', {url: wikiLink})}>
 							<Text style={{ textDecorationLine: 'underline', color: colors.blue }}>wikipedia</Text>
-							<EvilIcons name="external-link" size={10} color="blue" />
+							<EvilIcons name='external-link' size={10} color='blue' />
 						</Pressable>
 					</View>
 				</View>
