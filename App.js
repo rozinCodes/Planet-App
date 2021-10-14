@@ -1,9 +1,8 @@
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from './src/components/text/text';
 import { Details } from './src/screens/details';
 import { Home } from './src/screens/home';
 import Web from './src/screens/web';
@@ -14,16 +13,14 @@ export default function App() {
 	let [ fontsLoaded ] = useFonts({
 		'StickNoBills-SemiBold': require('./assets/fonts/StickNoBills-SemiBold.ttf'),
 		'Ephesis-Regular': require('./assets/fonts/Ephesis-Regular.ttf'),
-		'ScheherazadeNew-Regular': require('./assets/fonts/ScheherazadeNew-Regular.ttf'),
+		'ScheherazadeNew-Regular': require('./assets/fonts/ScheherazadeNew-Regular.ttf')
 	});
 
 	if (!fontsLoaded) {
-		return (
-			<View></View>
-		)
+		return <View />;
 	} else
 		return (
-			<NavigationContainer 
+			<NavigationContainer
 			// theme = {DarkTheme}
 			>
 				<Stack.Navigator>
@@ -34,7 +31,6 @@ export default function App() {
 			</NavigationContainer>
 		);
 }
-
 
 const styles = StyleSheet.create({
 	container: {

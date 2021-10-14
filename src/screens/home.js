@@ -11,7 +11,7 @@ import { PLANET_LIST } from '../planets';
 import { colors, spacing } from '../theme';
 
 const ROTATION_TIME = [ 0, 500 ];
-const RADIUS = [ 3000, 15000 ];
+const RADIUS = [ 3000, 35000 ];
 
 //Bottom modal component
 const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
@@ -19,13 +19,13 @@ const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 	const [ rotationTime, setRotationTime ] = useState(ROTATION_TIME);
 	const [ radius, setRadius ] = useState(RADIUS);
 
-//Filter resutlts on filter button click
+	//Filter resutlts on filter button click
 	const onPressFilter = () => {
 		filterAction({ rotationTime, radius });
 		closeModal();
 	};
 
-//To reset filtered results
+	//To reset filtered results
 	const onResetPressed = () => {
 		resetFilter();
 		closeModal();
@@ -33,7 +33,7 @@ const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 		setRadius(RADIUS);
 	};
 
-//Bottom Modal
+	//Bottom Modal
 	return (
 		<ReactNativeModal
 			isVisible={visible}
@@ -53,6 +53,7 @@ const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 					<Text preset="h3" style={{ margin: spacing[6] }}>
 						Filter your search
 					</Text>
+
 					<FilterBar
 						customParameter={setRotationTime}
 						step={10}
@@ -91,6 +92,7 @@ function FilterBar({ textTitle, customValue, step, min, max, customParameter }) 
 				step={step}
 				min={min}
 				max={max}
+				isMarkersSeparated={true}
 			/>
 		</View>
 	);
@@ -116,22 +118,21 @@ export const Home = ({ navigation }) => {
 		);
 	};
 
-	//Function used to search planets by their name
+	//Function used to search by name
 	const searchFilter = (text) => {
-		if(text) {
-		const filteredList = planetList.filter((item) => {
-			const itemData = item.name.toUpperCase();
-			const userInput = text.toUpperCase();
-			return itemData.indexOf(userInput) > -1;
-		});
-		setPlanetList(filteredList);
-	}
-	else {
-		setPlanetList(PLANET_LIST)
-	}
+		if (text) {
+			const filteredList = planetList.filter((item) => {
+				const itemData = item.name.toUpperCase();
+				const userInput = text.toUpperCase();
+				return itemData.indexOf(userInput) > -1;
+			});
+			setPlanetList(filteredList);
+		} else {
+			setPlanetList(PLANET_LIST);
+		}
 	};
 
-//Filter planets based on their rotation time and radius
+	//Filter planets based on their rotation time and radius
 	const filterPlanets = (data) => {
 		const { rotationTime, radius } = data;
 
@@ -146,7 +147,7 @@ export const Home = ({ navigation }) => {
 		setPlanetList(filteredList);
 	};
 
-//Set home screen to default on reset pressed
+	//Set home screen to default on reset pressed
 	const onResetPressed = () => {
 		setPlanetList(PLANET_LIST);
 	};

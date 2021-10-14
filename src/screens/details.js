@@ -22,7 +22,7 @@ const PlanetSection = ({ title, value }) => {
 			}}
 		>
 			<Text>{title}</Text>
-			<Text preset='h4'>{value}</Text>
+			<Text preset="h4">{value}</Text>
 		</View>
 	);
 };
@@ -34,30 +34,35 @@ export const Details = ({ route, navigation }) => {
 		<SafeAreaView>
 			<Header backButton={true} />
 			<ScrollView>
-				<View style = {{
-					marginBottom: 60
-				}}>
-				<Image source={surfaceImage} style={styles.imageStyle} />
-				<View style={{ alignItems: 'center' }}>
-					<Text preset='h3' style={styles.nameStyle}>
-						{name}
-					</Text>
-					<Text style={styles.descriptionStyle}>{description}</Text>
-				</View>
-
-				<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-					<Text>Source: </Text>
-					<View>
-						<Pressable style={{ flexDirection: 'row' }} onPress={() => navigation.navigate('Web', {url: wikiLink})}>
-							<Text style={{ textDecorationLine: 'underline', color: colors.blue }}>wikipedia</Text>
-							<EvilIcons name='external-link' size={10} color='blue' />
-						</Pressable>
+				<View
+					style={{
+						marginBottom: 80
+					}}
+				>
+					<Image source={surfaceImage} style={styles.imageStyle} />
+					<View style={{ alignItems: 'center' }}>
+						<Text preset="h3" style={styles.nameStyle}>
+							{name}
+						</Text>
+						<Text style={styles.descriptionStyle}>{description}</Text>
 					</View>
-				</View>
-				<PlanetSection title={'Rotation time: '} value={rotationTime} />
-				<PlanetSection title={'Revolution time: '} value={revolutionTime} />
-				<PlanetSection title={'Radius: '} value={radius} />
-				<PlanetSection title={'Average temperature: '} value={avgTemp} />
+
+					<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+						<Text>Source: </Text>
+						<View>
+							<Pressable
+								style={{ flexDirection: 'row' }}
+								onPress={() => navigation.navigate('Web', { url: wikiLink })}
+							>
+								<Text style={{ textDecorationLine: 'underline', color: colors.blue }}>wikipedia</Text>
+								<EvilIcons name="external-link" size={10} color="blue" />
+							</Pressable>
+						</View>
+					</View>
+					<PlanetSection title={'Rotation time: '} value={rotationTime} />
+					<PlanetSection title={'Revolution time: '} value={revolutionTime} />
+					<PlanetSection title={'Radius: '} value={radius} />
+					<PlanetSection title={'Average temperature: '} value={avgTemp} />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
