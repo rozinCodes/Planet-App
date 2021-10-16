@@ -37,7 +37,7 @@ const Modal = ({ visible, closeModal, filterAction, resetFilter }) => {
 	return (
 		<ReactNativeModal
 			isVisible={visible}
-			swipeDirection="up"
+			swipeDirection={["up","down"]}
 			onSwipeComplete={closeModal}
 			style={{ justifyContent: 'flex-start', marginTop: 80 }}
 			onBackdropPress={closeModal}
