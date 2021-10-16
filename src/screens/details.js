@@ -59,9 +59,9 @@ export const Details = ({ route, navigation }) => {
 							</Pressable>
 						</View>
 					</View>
-					<PlanetSection title={'Rotation time: '} value={rotationTime} />
-					<PlanetSection title={'Revolution time: '} value={revolutionTime} />
-					<PlanetSection title={'Radius: '} value={radius} />
+					<PlanetSection title={'Rotation time: '} value={`${rotationTime} days`}  />
+					<PlanetSection title={'Revolution time: '} value={`${revolutionTime} years`} />
+					<PlanetSection title={'Radius: '} value={`${radius} km`} />
 					<PlanetSection title={'Average temperature: '} value={avgTemp} />
 				</View>
 			</ScrollView>

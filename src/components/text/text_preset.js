@@ -7,10 +7,14 @@ const BASE = {
 const BASE_BOLD = {
 	fontFamily: typography.primary_bold,
 };
+const bold = {
+	fontWeight: 'bold'
+}
 
 export const presets = {
 	default: BASE,
 	bold: BASE_BOLD,
+	just_bold: bold,
 	h1: {
 		...BASE_BOLD,
 		fontSize: 32

@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
@@ -10,11 +10,11 @@ import { Text } from '../components/text/text';
 import { PLANET_LIST } from '../planets';
 import { colors, spacing } from '../theme';
 
-const ROTATION_TIME = [ 0, 500 ];
-const RADIUS = [ 3000, 35000 ];
+const ROTATION_TIME = [ 0, 2000 ];
+const RADIUS = [ 0, 70000 ];
 
 //Bottom modal component
-const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
+const Modal = ({ visible, closeModal, filterAction, resetFilter }) => {
 	const { height } = useWindowDimensions();
 	const [ rotationTime, setRotationTime ] = useState(ROTATION_TIME);
 	const [ radius, setRadius ] = useState(RADIUS);
@@ -37,8 +37,9 @@ const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 	return (
 		<ReactNativeModal
 			isVisible={visible}
-			swipeDirection="down"
-			style={{ justifyContent: 'flex-end' }}
+			swipeDirection="up"
+			onSwipeComplete={closeModal}
+			style={{ justifyContent: 'flex-start', marginTop: 80 }}
 			onBackdropPress={closeModal}
 		>
 			<View
@@ -56,17 +57,17 @@ const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 
 					<FilterBar
 						customParameter={setRotationTime}
-						step={10}
+						step={100}
 						min={0}
-						max={500}
+						max={2000}
 						customValue={rotationTime}
 						textTitle={`Rotation Time ${rotationTime[0]} - ${rotationTime[1]}`}
 					/>
 					<FilterBar
 						customParameter={setRadius}
-						step={200}
-						min={3000}
-						max={15000}
+						step={2000}
+						min={0}
+						max={70000}
 						customValue={radius}
 						textTitle={`Radius ${radius[0]} - ${radius[1]}`}
 					/>
@@ -84,9 +85,13 @@ const BottomModal = ({ visible, closeModal, filterAction, resetFilter }) => {
 //Common component for filter bar
 function FilterBar({ textTitle, customValue, step, min, max, customParameter }) {
 	return (
-		<View style={{ justifyContent: 'center', alignItems: 'center' }}>
-			<Text>{textTitle}</Text>
+		<View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: spacing[4] }}>
+			<View style={{ alignSelf: 'flex-start', marginLeft: spacing[6] }}>
+				<Text preset="just_bold">{textTitle}</Text>
+			</View>
 			<MultiSlider
+				markerStyle={{ backgroundColor: colors.black, height: 18, width: 18 }}
+				trackStyle={{ backgroundColor: 'red', height: 1 }}
 				values={customValue}
 				onValuesChange={(values) => customParameter(values)}
 				step={step}
@@ -147,7 +152,7 @@ export const Home = ({ navigation }) => {
 		setPlanetList(filteredList);
 	};
 
-	//Set home screen to default on reset pressed
+	//Set home screen to default on reset filter pressed
 	const onResetPressed = () => {
 		setPlanetList(PLANET_LIST);
 	};
@@ -159,11 +164,15 @@ export const Home = ({ navigation }) => {
 				style={{
 					flexDirection: 'row',
 					alignItems: 'center',
-					paddingHorizontal: spacing[5],
-					justifyContent: 'center'
+					paddingHorizontal: 20,
+					justifyContent: 'flex-start',
+					borderWidth: 0.1,
+					marginTop: 20,
+					marginHorizontal: 13,
+					borderRadius: 8
 				}}
 			>
-				<AntDesign name="search1" size={15} color="black" />
+				<AntDesign name="search1" size={15} color={colors.grey} />
 				<TextInput
 					style={styles.input}
 					placeholder="Search for a planet"
@@ -171,33 +180,23 @@ export const Home = ({ navigation }) => {
 					autoCorrect={false}
 					onChangeText={(text) => searchFilter(text)}
 				/>
+				<Ionicons
+					onPress={() => {
+						setVisible(true);
+					}}
+					name="filter"
+					size={15}
+					color={colors.grey}
+				/>
 			</View>
 			<FlatList
 				data={planetList}
 				renderItem={renderItem}
 				keyExtractor={(item, index) => item.name}
 				contentContainerStyle={{ padding: spacing[5] }}
-				ItemSeparatorComponent={() => <View style={{ height: 0.5, backgroundColor: colors.grey }} />}
+				ItemSeparatorComponent={() => <View style={{ height: 0.8, backgroundColor: colors.grey }} />}
 			/>
-
-			<TouchableOpacity
-				style={{
-					height: 50,
-					width: 50,
-					borderRadius: 25,
-					backgroundColor: colors.black,
-					alignItems: 'center',
-					justifyContent: 'center',
-					marginEnd: spacing[8],
-					alignSelf: 'flex-end'
-				}}
-				onPress={() => {
-					setVisible(true);
-				}}
-			>
-				<FontAwesome name="filter" size={24} color="white" />
-			</TouchableOpacity>
-			<BottomModal
+			<Modal
 				visible={visible}
 				closeModal={() => setVisible(false)}
 				filterAction={filterPlanets}
@@ -230,9 +229,9 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 40,
-		margin: 12,
+		margin: 5,
 		borderColor: colors.darkgrey,
 		padding: 10,
-		borderBottomWidth: 1
+		flex: 1
 	}
 });
