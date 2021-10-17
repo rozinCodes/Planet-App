@@ -2,25 +2,13 @@ import { EvilIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header } from '../components/header';
+import { Header } from '../components/header/header';
 import { Text } from '../components/text/text';
 import { colors, spacing } from '../theme';
 
-const PlanetSection = ({ title, value }) => {
+const PlanetDetails = ({ title, value }) => {
 	return (
-		<View
-			style={{
-				flexDirection: 'row',
-				alignItems: 'center',
-				justifyContent: 'space-between',
-				paddingHorizontal: spacing[4],
-				borderColor: colors.black,
-				borderWidth: 1,
-				marginHorizontal: spacing[5],
-				marginVertical: spacing[4],
-				paddingVertical: spacing[4]
-			}}
-		>
+		<View style={styles.detailsContainer}>
 			<Text>{title}</Text>
 			<Text preset="h4">{value}</Text>
 		</View>
@@ -59,10 +47,10 @@ export const Details = ({ route, navigation }) => {
 							</Pressable>
 						</View>
 					</View>
-					<PlanetSection title={'Rotation time: '} value={`${rotationTime} days`}  />
-					<PlanetSection title={'Revolution time: '} value={`${revolutionTime} years`} />
-					<PlanetSection title={'Radius: '} value={`${radius} km`} />
-					<PlanetSection title={'Average temperature: '} value={avgTemp} />
+					<PlanetDetails title={'Rotation time: '} value={`${rotationTime} days`} />
+					<PlanetDetails title={'Revolution time: '} value={`${revolutionTime} years`} />
+					<PlanetDetails title={'Radius: '} value={`${radius} km`} />
+					<PlanetDetails title={'Average temperature: '} value={avgTemp} />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -83,5 +71,16 @@ const styles = StyleSheet.create({
 		marginTop: spacing[1],
 		padding: spacing[5],
 		lineHeight: spacing[6]
+	},
+	detailsContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		paddingHorizontal: spacing[4],
+		borderColor: colors.black,
+		borderWidth: 1,
+		marginHorizontal: spacing[5],
+		marginVertical: spacing[4],
+		paddingVertical: spacing[4]
 	}
 });

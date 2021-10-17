@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, TouchableOpacity, View } from 'react-native';
-import { colors, spacing } from '../theme';
-import { Text } from './text/text';
+import { colors, spacing } from '../../theme';
+import { Text } from '../text/text';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 

@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header } from '../components/header';
-import ButtonComponent from '../components/text/buttonComponent';
+import { Header } from '../components/header/header';
+import ButtonComponent from '../components/button/buttonComponent';
 import { Text } from '../components/text/text';
-import { PLANET_LIST } from '../planets';
+import { PLANET_LIST } from '../local_json/planets';
 import { colors, spacing } from '../theme';
 
 const ROTATION_TIME = [ 0, 2000 ];
@@ -25,7 +25,7 @@ const Modal = ({ visible, closeModal, filterAction, resetFilter }) => {
 		closeModal();
 	};
 
-	//To reset filtered results
+	//To reset filtered results on reset filter pressed
 	const onResetPressed = () => {
 		resetFilter();
 		closeModal();
@@ -37,7 +37,7 @@ const Modal = ({ visible, closeModal, filterAction, resetFilter }) => {
 	return (
 		<ReactNativeModal
 			isVisible={visible}
-			swipeDirection={["up","down"]}
+			swipeDirection={[ 'up', 'down' ]}
 			onSwipeComplete={closeModal}
 			style={{ justifyContent: 'flex-start', marginTop: 80 }}
 			onBackdropPress={closeModal}
@@ -108,21 +108,6 @@ export const Home = ({ navigation }) => {
 	const [ planetList, setPlanetList ] = useState(PLANET_LIST);
 	const [ visible, setVisible ] = useState(false);
 
-	//Render items in home screen from flatlist
-	const renderItem = ({ item, index }) => {
-		return (
-			<TouchableOpacity onPress={() => navigation.navigate('Details', { planet: item })} style={styles.item}>
-				<View style={styles.centerRow}>
-					<Image source={item.surfaceImage} style={{ height: 20, width: 20 }} />
-					<Text preset="primary" style={styles.planetName}>
-						{item.name}
-					</Text>
-				</View>
-				<AntDesign name="right" size={12} color="black" />
-			</TouchableOpacity>
-		);
-	};
-
 	//Function used to search by name
 	const searchFilter = (text) => {
 		if (text) {
@@ -138,7 +123,7 @@ export const Home = ({ navigation }) => {
 	};
 
 	//Filter planets based on their rotation time and radius
-	const filterPlanets = (data) => {
+	const onFilterPressed = (data) => {
 		const { rotationTime, radius } = data;
 
 		const filteredList = planetList.filter((item) => {
@@ -157,24 +142,31 @@ export const Home = ({ navigation }) => {
 		setPlanetList(PLANET_LIST);
 	};
 
+	//Render items in home screen from flatlist
+	const renderItem = ({ item, index }) => {
+		return (
+			<TouchableOpacity onPress={() => navigation.navigate('Details', { planet: item })} style={styles.item}>
+				<View style={styles.centerRow}>
+					<Image source={item.surfaceImage} style={{ height: 20, width: 20 }} />
+					<Text preset="primary" style={styles.planetName}>
+						{item.name}
+					</Text>
+				</View>
+				<AntDesign name="right" size={12} color="black" />
+			</TouchableOpacity>
+		);
+	};
+
 	return (
+	//Home screen view
 		<SafeAreaView>
 			<Header />
 			<View
-				style={{
-					flexDirection: 'row',
-					alignItems: 'center',
-					paddingHorizontal: 20,
-					justifyContent: 'flex-start',
-					borderWidth: 0.1,
-					marginTop: 20,
-					marginHorizontal: 13,
-					borderRadius: 8
-				}}
+				style={styles.searchStyle}
 			>
 				<AntDesign name="search1" size={15} color={colors.grey} />
 				<TextInput
-					style={styles.input}
+					style={styles.searchInputStyle}
 					placeholder="Search for a planet"
 					keyboardType="default"
 					autoCorrect={false}
@@ -199,7 +191,7 @@ export const Home = ({ navigation }) => {
 			<Modal
 				visible={visible}
 				closeModal={() => setVisible(false)}
-				filterAction={filterPlanets}
+				filterAction={onFilterPressed}
 				resetFilter={onResetPressed}
 			/>
 		</SafeAreaView>
@@ -227,11 +219,21 @@ const styles = StyleSheet.create({
 		textTransform: 'uppercase',
 		marginLeft: spacing[5]
 	},
-	input: {
+	searchInputStyle: {
 		height: 40,
 		margin: 5,
 		borderColor: colors.darkgrey,
 		padding: 10,
 		flex: 1
+	},
+	searchStyle: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		paddingHorizontal: 20,
+		justifyContent: 'flex-start',
+		borderWidth: 0.1,
+		marginTop: 20,
+		marginHorizontal: 13,
+		borderRadius: 8
 	}
 });

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import WebView from 'react-native-webview';
-import { Header } from '../components/header';
-
+import { Header } from '../components/header/header';
 
 export default function Web({ route }) {
 	const [ visible, setVisible ] = useState(true);

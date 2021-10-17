@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors, spacing } from '../../theme';
 import { TouchableOpacity } from 'react-native';
-import { Text } from './text';
+import { Text } from '../text/text';
 
 export default function ButtonComponent({ title, onPress }) {
 	return (

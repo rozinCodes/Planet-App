@@ -2,14 +2,14 @@ import { colors, typography } from '../../theme';
 
 const BASE = {
 	fontFamily: typography.primary,
-	fontSize: 14,
+	fontSize: 14
 };
 const BASE_BOLD = {
-	fontFamily: typography.primary_bold,
+	fontFamily: typography.primary_bold
 };
 const bold = {
 	fontWeight: 'bold'
-}
+};
 
 export const presets = {
 	default: BASE,
@@ -33,6 +33,6 @@ export const presets = {
 	},
 	small: {
 		...BASE,
-		fontSize: 11,
+		fontSize: 11
 	}
 };
