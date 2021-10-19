@@ -1,11 +1,11 @@
-import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import ReactNativeModal from 'react-native-modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header } from '../components/header/header';
 import ButtonComponent from '../components/button/buttonComponent';
+import { Header } from '../components/header/header';
 import { Text } from '../components/text/text';
 import { PLANET_LIST } from '../local_json/planets';
 import { colors, spacing } from '../theme';
@@ -97,7 +97,6 @@ function FilterBar({ textTitle, customValue, step, min, max, customParameter }) 
 				step={step}
 				min={min}
 				max={max}
-				isMarkersSeparated={true}
 			/>
 		</View>
 	);
@@ -158,12 +157,10 @@ export const Home = ({ navigation }) => {
 	};
 
 	return (
-	//Home screen view
+		//Home screen view
 		<SafeAreaView>
 			<Header />
-			<View
-				style={styles.searchStyle}
-			>
+			<View style={styles.searchStyle}>
 				<AntDesign name="search1" size={15} color={colors.grey} />
 				<TextInput
 					style={styles.searchInputStyle}
@@ -173,6 +170,12 @@ export const Home = ({ navigation }) => {
 					onChangeText={(text) => searchFilter(text)}
 				/>
 				<Ionicons
+					style={{
+						textAlignVertical: 'center',
+						height: '100%',
+						width: 'auto',
+						padding: 15
+					}}
 					onPress={() => {
 						setVisible(true);
 					}}
@@ -182,6 +185,7 @@ export const Home = ({ navigation }) => {
 				/>
 			</View>
 			<FlatList
+				showsHorizontalScrollIndicator={false}
 				data={planetList}
 				renderItem={renderItem}
 				keyExtractor={(item, index) => item.name}

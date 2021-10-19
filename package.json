@@ -8,6 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/material": "^5.0.4",
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",

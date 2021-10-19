@@ -14,7 +14,7 @@ export const Header = ({ backButton = false }) => {
 				alignItems: 'center',
 				justifyContent: 'space-between',
 				flexFlow: 'wrap',
-				paddingHorizontal: spacing[1],
+				paddingHorizontal: spacing[3],
 				paddingVertical: spacing[2],
 				borderBottomColor: colors.black,
 				borderBottomWidth: 1,
